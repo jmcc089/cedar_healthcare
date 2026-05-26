@@ -1,6 +1,9 @@
 {
   "name": "cedar-healthcare-site",
   "version": "1.0.0",
+  "scripts": {
+    "start": "npx serve . -p $PORT"
+  },
   "dependencies": {
     "serve": "^14"
   }
