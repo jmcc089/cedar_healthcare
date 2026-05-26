@@ -1,0 +1,7 @@
+{
+  "name": "cedar-healthcare-site",
+  "version": "1.0.0",
+  "dependencies": {
+    "serve": "^14"
+  }
+}
