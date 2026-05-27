@@ -143,16 +143,24 @@
                 display: block;
             }
 
-            /* ── HERO ── */
+            /* ── HERO LAYOUT ── */
             .hero {
                 min-height: calc(100vh - var(--nav-h));
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                align-items: center;
                 max-width: 1100px;
                 margin: 0 auto;
                 padding: 80px 32px;
+                display: flex;
+                flex-direction: column;
+                /* This line centers the content vertically */
+                justify-content: center;
                 gap: 64px;
+            }
+            .hero-main-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                gap: 64px;
+                width: 100%;
             }
             .hero-eyebrow {
                 display: inline-flex;
@@ -188,49 +196,38 @@
                 font-size: 17px;
                 color: var(--slate-mid);
                 line-height: 1.7;
-                margin-bottom: 36px;
                 max-width: 480px;
             }
-            .hero-actions {
+
+            /* Center Button Container spanning the full width below the grid */
+            .hero-actions-centered {
                 display: flex;
-                gap: 12px;
-                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+                margin-top: 16px;
             }
-            .btn-primary {
-                background: var(--blue);
-                color: #fff;
-                padding: 13px 28px;
-                border-radius: 8px;
-                font-size: 15px;
-                font-weight: 500;
-                text-decoration: none;
-                border: none;
-                cursor: pointer;
-                transition:
-                    background 0.2s,
-                    transform 0.15s;
-                display: inline-block;
-            }
-            .btn-primary:hover {
-                background: var(--blue-dark);
-                transform: translateY(-1px);
-            }
-            .btn-ghost {
+
+            /* Large, highly prominent CTA button matching your second design */
+            .btn-primary-large {
                 background: transparent;
                 color: var(--blue);
-                padding: 13px 28px;
-                border-radius: 8px;
-                font-size: 15px;
+                border: 2px solid var(--blue);
+                padding: 20px 60px;
+                border-radius: 50px; /* Fully rounded "pill" shape */
+                font-size: 22px;
                 font-weight: 500;
                 text-decoration: none;
-                border: 1.5px solid var(--blue);
-                cursor: pointer;
-                transition: all 0.2s;
                 display: inline-block;
+                transition: all 0.3s ease;
             }
-            .btn-ghost:hover {
-                background: var(--blue-light);
+
+            .btn-primary-large:hover {
+                background: var(--blue);
+                color: #fff;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(29, 64, 174, 0.15);
             }
+
             .hero-visual {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -275,6 +272,14 @@
             .hero-stat {
                 text-align: center;
                 padding: 20px 16px;
+            }
+            .hero-stat-num {
+                font-family: var(--serif);
+                font-size: 36px;
+                color: var(--blue);
+                display: block;
+                line-height: 1;
+                margin-bottom: 6px;
             }
             .hero-stat-num {
                 font-family: var(--serif);
@@ -665,10 +670,13 @@
             /* ── MOBILE ── */
             @media (max-width: 768px) {
                 .hero {
-                    grid-template-columns: 1fr;
                     gap: 48px;
                     padding: 48px 20px;
                     min-height: auto;
+                }
+                .hero-main-grid {
+                    grid-template-columns: 1fr;
+                    gap: 48px;
                 }
                 .hero-visual {
                     display: none;
@@ -709,6 +717,11 @@
                 .trust-bar-inner {
                     gap: 20px;
                 }
+                .btn-primary-large {
+                    width: 100%;
+                    font-size: 20px;
+                    padding: 16px 32px;
+                }
             }
 
             /* ── ANIMATIONS ── */
@@ -744,7 +757,6 @@
         </style>
     </head>
     <body>
-        <!-- NAVIGATION -->
         <nav>
             <div class="nav-inner">
                 <a class="nav-logo" href="#" onclick="showPage('home')">
@@ -780,70 +792,79 @@
             </div>
         </nav>
 
-        <!-- ══════════════════════════════════════════
-     HOME PAGE
-══════════════════════════════════════════ -->
         <div class="page-section active" id="page-home">
-            <!-- Hero -->
             <section class="hero">
-                <div>
-                    <div class="hero-eyebrow fade-up fade-up-1">
-                        Austin, Texas · Est. 2019
+                <div class="hero-main-grid">
+                    <div>
+                        <div class="hero-eyebrow fade-up fade-up-1">
+                            Austin, Texas · Est. 2019
+                        </div>
+                        <h1 class="fade-up fade-up-2">
+                            Care that moves <em>you</em> forward
+                        </h1>
+                        <p class="hero-desc fade-up fade-up-3">
+                            Cedar Healthcare brings together physiotherapy,
+                            sports massage, and clinical nutrition under one
+                            roof — tailored treatment from practitioners who
+                            actually know your name.
+                        </p>
                     </div>
-                    <h1 class="fade-up fade-up-2">
-                        Care that moves <em>you</em> forward
-                    </h1>
-                    <p class="hero-desc fade-up fade-up-3">
-                        Cedar Healthcare brings together physiotherapy, sports
-                        massage, and clinical nutrition under one roof —
-                        tailored treatment from practitioners who actually know
-                        your name.
-                    </p>
-                </div>
-                <div class="hero-visual fade-up fade-up-3">
-                    <div class="hero-card">
-                        <div class="hero-card-icon">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="22"
-                                height="22"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+
+                    <div class="hero-visual fade-up fade-up-3">
+                        <div class="hero-card">
+                            <div class="hero-card-icon">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="hero-card-title">
+                                    Smart intake triage
+                                </div>
+                                <div class="hero-card-sub">
+                                    Urgent cases reviewed same day
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-card hero-stat">
+                            <span class="hero-stat-num">3</span>
+                            <span class="hero-stat-label"
+                                >specialist<br />practitioners</span
                             >
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                            </svg>
                         </div>
-                        <div>
-                            <div class="hero-card-title">
-                                Smart intake triage
-                            </div>
-                            <div class="hero-card-sub">
-                                Urgent cases reviewed same day
-                            </div>
+                        <div class="hero-card hero-stat">
+                            <span
+                                class="hero-stat-num"
+                                style="color: var(--cyan)"
+                                >2019</span
+                            >
+                            <span class="hero-stat-label"
+                                >serving Austin<br />since</span
+                            >
                         </div>
                     </div>
-                    <div class="hero-card hero-stat">
-                        <span class="hero-stat-num">3</span>
-                        <span class="hero-stat-label"
-                            >specialist<br />practitioners</span
-                        >
-                    </div>
-                    <div class="hero-card hero-stat">
-                        <span class="hero-stat-num" style="color: var(--cyan)"
-                            >2019</span
-                        >
-                        <span class="hero-stat-label"
-                            >serving Austin<br />since</span
-                        >
-                    </div>
+                </div>
+
+                <div class="hero-actions-centered fade-up fade-up-4">
+                    <a
+                        href="#"
+                        onclick="showPage('contact')"
+                        class="btn-primary-large"
+                        >Request appointment</a
+                    >
                 </div>
             </section>
 
-            <!-- Trust bar -->
             <div class="trust-bar">
                 <div class="trust-bar-inner">
                     <div class="trust-item">
@@ -913,7 +934,6 @@
                 </div>
             </div>
 
-            <!-- Services preview -->
             <section class="section">
                 <div class="section-inner">
                     <div class="section-label">What we treat</div>
@@ -996,10 +1016,9 @@
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 >
-                                    <path
-                                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"
-                                    />
-                                    <path d="M12 6v6l4 2" />
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
                                 </svg>
                             </div>
                             <div class="service-name">Clinical nutrition</div>
@@ -1017,11 +1036,6 @@
                 </div>
             </section>
         </div>
-        <!-- /home -->
-
-        <!-- ══════════════════════════════════════════
-     SERVICES PAGE
-══════════════════════════════════════════ -->
         <div class="page-section" id="page-services">
             <section class="section">
                 <div class="section-inner">
@@ -1194,11 +1208,6 @@
                 </div>
             </section>
         </div>
-        <!-- /services -->
-
-        <!-- ══════════════════════════════════════════
-     TEAM PAGE
-══════════════════════════════════════════ -->
         <div class="page-section" id="page-team">
             <section class="section">
                 <div class="section-inner">
@@ -1283,11 +1292,6 @@
                 </div>
             </section>
         </div>
-        <!-- /team -->
-
-        <!-- ══════════════════════════════════════════
-     CONTACT / INTAKE PAGE
-══════════════════════════════════════════ -->
         <div class="page-section" id="page-contact">
             <section class="section">
                 <div class="section-inner">
@@ -1366,10 +1370,6 @@
 
                         <div class="tally-wrapper">
                             <div class="tally-embed">
-                                <!--
-              REPLACE THE SRC BELOW WITH YOUR ACTUAL TALLY FORM EMBED URL
-              Format: https://tally.so/embed/YOUR_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1
-            -->
                                 <iframe
                                     src="https://tally.so/r/2EDkgL"
                                     loading="lazy"
@@ -1386,9 +1386,6 @@
                 </div>
             </section>
         </div>
-        <!-- /contact -->
-
-        <!-- FOOTER (shown on all pages) -->
         <footer>
             <div class="footer-inner">
                 <div class="footer-top">
